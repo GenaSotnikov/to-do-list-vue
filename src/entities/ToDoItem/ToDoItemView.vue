@@ -7,8 +7,10 @@ const $emit = defineEmits(['onRemove', 'onCompleteToggle'])
 </script>
 
 <template>
-  <li class="to-do__li" :class="{ 'to-do__li_completed': item?.completed }">
-    {{ item?.text }}
+  <li class="to-do__li">
+    <div :class="{ 'to-do__label_completed': item?.completed }">
+      {{ item?.text }}
+    </div>
     <button class="to-do__complete" @click="$emit('onCompleteToggle')">
       {{ item?.completed ? 'Undo' : 'Complete' }}
     </button>
@@ -17,6 +19,11 @@ const $emit = defineEmits(['onRemove', 'onCompleteToggle'])
 </template>
 
 <style>
+.to-do__label_completed {
+  text-decoration: line-through;
+  color: #888;
+}
+
 .to-do__li {
   position: relative;
   display: flex;
@@ -25,11 +32,6 @@ const $emit = defineEmits(['onRemove', 'onCompleteToggle'])
   padding: 0.5rem 0;
   width: 300px;
   border-bottom: 1px solid #ccc;
-}
-
-.to-do__completed {
-  text-decoration: line-through;
-  color: #888;
 }
 
 .to-do__remove {
