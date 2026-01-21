@@ -22,6 +22,10 @@ const router = createRouter({
       name: 'about',
       component: () => import('../pages/ToDoView.vue'),
     },
+    {
+      path: '/to-do/:id',
+      component: () => import('../pages/TaskDetailsPage.vue'),
+    },
   ],
 })
 

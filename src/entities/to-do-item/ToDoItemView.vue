@@ -1,20 +1,21 @@
 <script setup lang="ts">
+import { RouterLink } from 'vue-router'
 import { type ToDoItem } from './types'
 const { item } = defineProps<{
   item: ToDoItem
 }>()
-const $emit = defineEmits(['onRemove', 'onCompleteToggle'])
+const emit = defineEmits(['onRemove', 'onCompleteToggle'])
 </script>
 
 <template>
   <li class="to-do__li">
-    <div :class="{ 'to-do__label_completed': item?.completed }">
+    <RouterLink :to="'to-do/' + item?.id" :class="{ 'to-do__label_completed': item?.completed }">
       {{ item?.text }}
-    </div>
-    <button class="to-do__complete" @click="$emit('onCompleteToggle')">
+    </RouterLink>
+    <button class="to-do__complete" @click="emit('onCompleteToggle')">
       {{ item?.completed ? 'Undo' : 'Complete' }}
     </button>
-    <button class="to-do__remove" @click="$emit('onRemove')">Remove</button>
+    <button class="to-do__remove" @click="emit('onRemove')">Remove</button>
   </li>
 </template>
 

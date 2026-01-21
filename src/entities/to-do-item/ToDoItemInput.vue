@@ -16,17 +16,9 @@ function addItem(text: string) {
 
 <template>
   <input
+    class="input"
     type="text"
     placeholder="Add a new to-do item"
     @keyup.enter="addItem((<any>$event.target)?.value)"
   />
 </template>
-
-<style>
-input {
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-  width: 300px;
-  font-size: 1rem;
-}
-</style>

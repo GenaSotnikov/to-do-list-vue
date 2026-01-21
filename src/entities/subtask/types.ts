@@ -1,5 +1,6 @@
-export interface ToDoItem {
+export interface Subtask {
   id: string
   text: string
   completed: boolean
+  taskId: string
 }

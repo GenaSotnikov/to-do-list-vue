@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { type ToDoItem, ToDoItemView } from '../../entities/ToDoItem'
-const { items } = defineProps<{ items: ToDoItem[] }>()
+import { type ToDoItem, ToDoItemView } from '../../entities/to-do-item'
+const props = defineProps<{ items: ToDoItem[] }>()
+
 const emit = defineEmits<{
   (e: 'removeItem', id: string): void
   (e: 'toggleComplete', id: string): void
@@ -10,7 +11,7 @@ const emit = defineEmits<{
   <div class="to-do">
     <ul>
       <ToDoItemView
-        v-for="(todoItem, index) in items"
+        v-for="(todoItem, index) in props.items"
         :key="index"
         :item="todoItem"
         @onCompleteToggle="emit('toggleComplete', todoItem.id)"
