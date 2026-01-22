@@ -9,7 +9,7 @@ const emit = defineEmits(['onRemove', 'onCompleteToggle'])
 
 <template>
   <li class="to-do__li">
-    <RouterLink :to="'to-do/' + item?.id" :class="{ 'to-do__label_completed': item?.completed }">
+    <RouterLink :to="'/' + item?.id" :class="{ 'to-do__label_completed': item?.completed }">
       {{ item?.text }}
     </RouterLink>
     <button class="to-do__complete" @click="emit('onCompleteToggle')">
