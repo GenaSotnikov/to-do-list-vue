@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+import EditableTextInput from '../shared/ui-kit/EditableTextInput.vue'
 import { useToDoItemsStore } from '../entities/to-do-item'
 import { useSubtaskStore } from '../entities/subtask'
 import AddSubtaskInput from '../entities/subtask/AddSubtaskInput.vue'
@@ -14,8 +15,8 @@ const subtasks = computed(() => subtasksStore.getSubtasksByTaskId(taskId))
 
 <template>
   <section>
-    <h1>{{ task?.text }}</h1>
-    <p>{{ task?.description }}</p>
+    <EditableTextInput class="task-name" v-model="task!.text" />
+    <EditableTextInput class="task-description" v-model="task!.description" />
     <h2>Subtasks</h2>
     <ul>
       <li v-for="subtask in subtasks" :key="subtask.id">
@@ -30,3 +31,13 @@ const subtasks = computed(() => subtasksStore.getSubtasksByTaskId(taskId))
     />
   </section>
 </template>
+
+<style scoped>
+.task-name {
+  font-size: 24px;
+  font-weight: bold;
+}
+.task-description {
+  font-size: 18px;
+}
+</style>
