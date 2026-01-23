@@ -5,6 +5,7 @@ import EditableTextInput from '../shared/ui-kit/EditableTextInput.vue'
 import { useToDoItemsStore } from '../entities/to-do-item'
 import { useSubtaskStore } from '../entities/subtask'
 import AddSubtaskInput from '../entities/subtask/AddSubtaskInput.vue'
+import EditableLi from '../shared/ui-kit/EditableLi.vue'
 const route = useRoute()
 const toDoItemsStore = useToDoItemsStore()
 const subtasksStore = useSubtaskStore()
@@ -19,11 +20,12 @@ const subtasks = computed(() => subtasksStore.getSubtasksByTaskId(taskId))
     <EditableTextInput class="task-description" v-model="task!.description" />
     <h2>Subtasks</h2>
     <ul>
-      <li v-for="subtask in subtasks" :key="subtask.id">
-        <span :class="{ 'to-do__label_completed': subtask.completed }">
-          {{ subtask.text }}
-        </span>
-      </li>
+      <EditableLi
+        v-for="subtask in subtasks"
+        :key="subtask.id"
+        v-model:text="subtask.text"
+        v-model:checked="subtask.completed"
+      />
     </ul>
     <AddSubtaskInput
       :taskId="taskId"
