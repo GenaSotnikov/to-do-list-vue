@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import EditableTextInput from '../shared/ui-kit/EditableTextInput.vue'
-import { useToDoItemsStore } from '../entities/to-do-item'
+import { useToDoItemsStore, type ToDoItem } from '../entities/to-do-item'
 import { useSubtaskStore } from '../entities/subtask'
 import AddSubtaskInput from '../entities/subtask/AddSubtaskInput.vue'
 import EditableLi from '../shared/ui-kit/EditableLi.vue'
@@ -10,12 +10,15 @@ const route = useRoute()
 const toDoItemsStore = useToDoItemsStore()
 const subtasksStore = useSubtaskStore()
 const taskId = route.params.id as string
-const task = toDoItemsStore.getById(taskId)
+const task = ref<ToDoItem | null>(null)
+toDoItemsStore.getById(taskId).then(res => task.value = res ?? null)
 const subtasks = computed(() => subtasksStore.getSubtasksByTaskId(taskId))
 </script>
 
 <template>
-  <section>
+  <p v-if="toDoItemsStore.loading">Loading...</p>
+  <p v-else-if="!task">Task not found.</p>
+  <section v-else>
     <EditableTextInput class="task-name" v-model="task!.text" />
     <EditableTextInput class="task-description" v-model="task!.description" />
     <h2>Subtasks</h2>

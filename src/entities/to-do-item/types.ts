@@ -1,6 +1,9 @@
-export interface ToDoItem {
-  id: string
+export interface ToDoItemPayload {
   text: string
   completed: boolean
-  description?: string
+  description: string
+}
+
+export interface ToDoItem extends ToDoItemPayload {
+  id: string
 }
