@@ -3,6 +3,8 @@ import { ToDoItemInput, useToDoItemsStore } from '../entities/to-do-item'
 import { ToDoList } from '../feature/ToDoList'
 
 const store = useToDoItemsStore()
+
+store.refreshData();
 </script>
 
 <template>

@@ -9,6 +9,7 @@ function addItem(text: string) {
     id: crypto.randomUUID(),
     text,
     completed: false,
+    description: ''
   }
   emit('addItem', newItem)
 }
