@@ -11,7 +11,7 @@ const toDoItemsStore = useToDoItemsStore()
 const subtasksStore = useSubtaskStore()
 const taskId = route.params.id as string
 const task = ref<ToDoItem | null>(null)
-toDoItemsStore.getById(taskId).then(res => task.value = res ?? null)
+toDoItemsStore.getById(taskId).then((res) => (task.value = res ?? null))
 const subtasks = computed(() => subtasksStore.getSubtasksByTaskId(taskId))
 </script>
 

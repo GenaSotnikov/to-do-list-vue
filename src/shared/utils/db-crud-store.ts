@@ -13,8 +13,7 @@ type CrudActions<T, TInsert = Partial<T>> = {
   getById: (id: string) => Promise<T | null>
 }
 
-type CrudStoreThis<T, TInsert = Partial<T>> = CrudState<T> &
-  CrudActions<T, TInsert>
+type CrudStoreThis<T, TInsert = Partial<T>> = CrudState<T> & CrudActions<T, TInsert>
 
 type CrudStoreOptions<T, TInsert = Partial<T>> = {
   state: () => CrudState<T>
@@ -24,17 +23,13 @@ type CrudStoreOptions<T, TInsert = Partial<T>> = {
 export function createDbCrudStoreOptions<
   EntityType,
   TableName extends SupabaseTable = SupabaseTable,
->(
-  tableName: TableName,
-): CrudStoreOptions<EntityType, SupabaseInsert<TableName>> {
+>(tableName: TableName): CrudStoreOptions<EntityType, SupabaseInsert<TableName>> {
   const table = supabase.from(tableName)
 
   return {
     state: (): CrudState<EntityType> => ({ loading: true, data: [] }),
     actions: {
-      async refreshData(
-        this: CrudStoreThis<EntityType, SupabaseInsert<TableName>>,
-      ) {
+      async refreshData(this: CrudStoreThis<EntityType, SupabaseInsert<TableName>>) {
         const res = await table.select('*')
         this.data = (res.data as EntityType[]) || []
         this.loading = false
@@ -49,10 +44,7 @@ export function createDbCrudStoreOptions<
         return res.data?.[0] as EntityType
       },
 
-      async removeItem(
-        this: CrudStoreThis<EntityType, SupabaseInsert<TableName>>,
-        id: string,
-      ) {
+      async removeItem(this: CrudStoreThis<EntityType, SupabaseInsert<TableName>>, id: string) {
         await table.delete().eq('id', id)
         await this.refreshData()
       },

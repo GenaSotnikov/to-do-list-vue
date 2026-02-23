@@ -22,9 +22,7 @@ export const useToDoItemsStore = defineStore('toDoItem', {
       if (!currentValue.data?.[0]) {
         throw new Error('Item not found')
       }
-      await table
-        .update({ completed: !currentValue.data[0].completed })
-        .eq('id', id)
+      await table.update({ completed: !currentValue.data[0].completed }).eq('id', id)
       await this.refreshData()
     },
   },

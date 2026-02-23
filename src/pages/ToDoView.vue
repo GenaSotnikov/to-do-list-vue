@@ -4,7 +4,7 @@ import { ToDoList } from '../feature/ToDoList'
 
 const store = useToDoItemsStore()
 
-store.refreshData();
+store.refreshData()
 </script>
 
 <template>
