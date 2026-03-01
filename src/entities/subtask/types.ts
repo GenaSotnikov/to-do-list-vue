@@ -1,6 +1,9 @@
-export interface Subtask {
-  id: string
+export interface SubtaskCreateDto {
   text: string
   completed: boolean
-  taskId: string
+  task_id: string
+}
+
+export interface Subtask extends SubtaskCreateDto {
+  id: string
 }

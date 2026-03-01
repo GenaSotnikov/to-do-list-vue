@@ -1,15 +1,21 @@
 <script setup lang="ts">
 import EditableTextInput from './EditableTextInput.vue'
-const textModel = defineModel<string>('text', { default: '' })
-const checked = defineModel<boolean>('checked', { default: false })
+const props = defineProps<{ checked: boolean, text: string }>()
+const modelValue = defineModel<string>('text')
+const emit = defineEmits<{
+  (e: 'update:checked', value: boolean): void,
+  (e: 'blur', value: string): void
+}>();
+
+modelValue.value = props.text
 </script>
 
 <template>
   <li>
-    <button :class="{ checked }" @click="checked = !checked">
-      {{ checked ? '✔' : '' }}
+    <button :class="{ checked: props.checked }" @click="emit('update:checked', !props.checked)">
+      {{ props.checked ? '✔' : '' }}
     </button>
-    <EditableTextInput v-model="textModel" />
+    <EditableTextInput v-model="modelValue" @blur="emit('blur', modelValue ?? '')" />
   </li>
 </template>
 

@@ -1,21 +1,20 @@
 <script setup lang="ts">
-import type { Subtask } from './types'
+import type { SubtaskCreateDto } from './types'
 
 const props = defineProps<{
   taskId: string
 }>()
 const emit = defineEmits<{
-  (e: 'addSubtask', value: Subtask): void
+  (e: 'addSubtask', value: SubtaskCreateDto): void
 }>()
 function submitForm(event: KeyboardEvent) {
   const input = event.target as HTMLInputElement
   const text = input.value.trim()
   if (text) {
-    const newSubtask: Subtask = {
-      id: crypto.randomUUID(),
+    const newSubtask: SubtaskCreateDto = {
       text,
       completed: false,
-      taskId: props.taskId,
+      task_id: props.taskId,
     }
     // Here you would normally emit an event or call a method to add the subtask
     console.log('Adding subtask:', newSubtask)
