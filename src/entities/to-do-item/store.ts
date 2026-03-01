@@ -1,10 +1,9 @@
 import { defineStore } from 'pinia'
 import { supabase } from '../../shared/supabase'
 import { createDbCrudStoreOptions } from '../../shared/utils/db-crud-store'
-import type { ToDoItem } from './types'
 
 const table = supabase.from('todo_items')
-const crud = createDbCrudStoreOptions<ToDoItem>('todo_items')
+const crud = createDbCrudStoreOptions('todo_items')
 
 export const useToDoItemsStore = defineStore('toDoItem', {
   ...crud,

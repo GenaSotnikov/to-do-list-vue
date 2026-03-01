@@ -1,9 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import { createDbCrudStoreOptions } from '../db-crud-store'
-import { type ToDoItem } from '../../../entities/to-do-item/types'
 
 describe('createDbCrudStoreOptions', () => {
-  const options = createDbCrudStoreOptions<ToDoItem>('todo_items')
+  const options = createDbCrudStoreOptions('todo_items')
   it('should create store options', () => {
     expect(options).not.toBe(undefined)
     expect(options).not.toBe(null)
