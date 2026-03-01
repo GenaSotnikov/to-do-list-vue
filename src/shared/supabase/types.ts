@@ -49,6 +49,7 @@ export type Database = {
           created_at: string
           description: string
           id: string
+          owner_id: string
           text: string
           updated_at: string
         }
@@ -57,6 +58,7 @@ export type Database = {
           created_at?: string
           description?: string
           id?: string
+          owner_id?: string
           text: string
           updated_at?: string
         }
@@ -65,10 +67,19 @@ export type Database = {
           created_at?: string
           description?: string
           id?: string
+          owner_id?: string
           text?: string
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: 'todo_items_owner_id_fkey'
+            columns: ['owner_id']
+            isOneToOne: false
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
+        ]
       }
     }
     Views: {

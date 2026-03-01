@@ -1,6 +1,37 @@
 <script setup lang="ts">
+import { onMounted, onUnmounted, ref } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
+import { useRouter } from 'vue-router'
+import type { Session } from '@supabase/supabase-js'
 import HelloWorld from './tests-sample/HelloWorld.vue'
+import { supabase } from './shared/supabase'
+
+const router = useRouter()
+const session = ref<Session | null>(null)
+let authSubscription: { unsubscribe: () => void } | null = null
+
+onMounted(async () => {
+  const {
+    data: { session: initialSession },
+  } = await supabase.auth.getSession()
+  session.value = initialSession
+
+  const {
+    data: { subscription },
+  } = supabase.auth.onAuthStateChange((_event, currentSession) => {
+    session.value = currentSession
+  })
+  authSubscription = subscription
+})
+
+onUnmounted(() => {
+  authSubscription?.unsubscribe()
+})
+
+async function signOut() {
+  await supabase.auth.signOut()
+  await router.push('/login')
+}
 </script>
 
 <template>
@@ -12,6 +43,7 @@ import HelloWorld from './tests-sample/HelloWorld.vue'
 
       <nav>
         <RouterLink to="/">To-do list</RouterLink>
+        <button v-if="session" type="button" @click="signOut">Sign out</button>
       </nav>
     </div>
   </header>
